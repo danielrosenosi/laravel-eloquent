@@ -4,10 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'user_id',
+        'title',
+        'body',
+        'date',
+    ];
 
     // protected $table = 'nome_da_tabela'; define o nome da tabela, se não for o nome da model no plural
     // protected $timestamps = false; desabilita as colunas timestamps
@@ -20,10 +28,8 @@ class Post extends Model
     // protected $dateFormat = 'd/m/y';
     // protected $attributes = ['coluna' => 'valor'];
 
-    protected $fillable = [
-        'user_id',
-        'title',
-        'body',
-        'date',
-    ];
+    public function getTitleAttribute($value)
+    {
+        return strtoupper($value);
+    }
 }
