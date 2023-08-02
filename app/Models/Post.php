@@ -19,4 +19,11 @@ class Post extends Model
     // const UPDATED_AT = 'data_atualizacao';
     // protected $dateFormat = 'd/m/y';
     // protected $attributes = ['coluna' => 'valor'];
+
+    protected $fillable = [
+        'user_id',
+        'title',
+        'body',
+        'date',
+    ];
 }
