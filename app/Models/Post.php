@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Accessors\DefaultAccessors;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, DefaultAccessors;
 
     protected $fillable = [
         'user_id',
@@ -27,9 +28,4 @@ class Post extends Model
     // const UPDATED_AT = 'data_atualizacao';
     // protected $dateFormat = 'd/m/y';
     // protected $attributes = ['coluna' => 'valor'];
-
-    public function getTitleAttribute($value)
-    {
-        return strtoupper($value);
-    }
 }

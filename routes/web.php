@@ -32,6 +32,12 @@ Route::get('/insert2', function (Request $request) {
     return $posts;
 });
 
+Route::get('/posts', function () {
+    $post = Post::first();
+
+    return $post->title_and_body;
+});
+
 Route::get('/insert', function (Post $post) {
     $post->user_id = 2;
     $post->title = Str::random();
