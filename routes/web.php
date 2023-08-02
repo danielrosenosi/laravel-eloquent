@@ -6,7 +6,35 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
-Route::get('posts/delete/{postId}', function (int $postId) {
+Route::get('/anonymous-global-scope', function () {
+    $posts = Post::get();
+    // $posts = Post::withoutGlobalScope('year')->get(); removendo o escopo global anônimo
+
+    return $posts;
+});
+
+Route::get('/local-scope', function () {
+    // $posts = Post::lastWeek()->get();
+    // $posts = Post::today()->get();
+    $posts = Post::between('2023-01-01', '23-12-31')->get();
+
+    return $posts;
+});
+
+Route::get('/mutators', function () {
+    $user = User::first();
+
+    $post = Post::create([
+        'user_id' => $user->id,
+        'title' => Str::random(5),
+        'body' => 'conteúdo',
+        'date' => now(),
+    ]);
+
+    return $post;
+});
+
+Route::get('/posts/delete/{postId}', function (int $postId) {
     $post = Post::find($postId);
 
     $post->delete();
@@ -14,7 +42,7 @@ Route::get('posts/delete/{postId}', function (int $postId) {
     return 'Post deleted';
 });
 
-Route::get('posts/update/{postId}', function (int $postId) {
+Route::get('/posts/update/{postId}', function (int $postId) {
     $post = Post::findOrFail($postId);
 
     $post->update([
