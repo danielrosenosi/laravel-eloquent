@@ -35,7 +35,7 @@ Route::get('/insert2', function (Request $request) {
 Route::get('/posts', function () {
     $post = Post::first();
 
-    return $post->title_and_body;
+    return $post;
 });
 
 Route::get('/insert', function (Post $post) {
