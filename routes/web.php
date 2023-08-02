@@ -2,13 +2,35 @@
 
 use App\Models\Post;
 use App\Models\User;
+use App\Scopes\YearScope;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
+Route::get('/events', function () {
+    $post = Post::create([
+        'title' => Str::random(5),
+        'body' => Str::random(50),
+        'date' => now()
+    ]);
+
+    return $post;
+});
+
+Route::get('/observer', function () {
+    $post = Post::create([
+        'title' => 'Test1e',
+        'body' => 'Tes1te',
+        'date' => now()
+    ]);
+
+    return $post;
+});
+
 Route::get('/anonymous-global-scope', function () {
     $posts = Post::get();
     // $posts = Post::withoutGlobalScope('year')->get(); removendo o escopo global anônimo
+    // $posts = Post::withoutGlobalScope(YearScope::class)->get(); removendo o escopo, quando ele é uma class
 
     return $posts;
 });

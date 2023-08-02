@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Accessors\DefaultAccessors;
+use App\Scopes\YearScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,6 @@ class Post extends Model
     use HasFactory, SoftDeletes, DefaultAccessors;
 
     protected $fillable = [
-        'user_id',
         'title',
         'body',
         'date',
@@ -28,9 +28,11 @@ class Post extends Model
 
     protected static function booted()
     {
-        static::addGlobalScope('year', function (Builder $builder) {
-            $builder->whereYear('date', now()->year);
-        });
+        // static::addGlobalScope('year', function (Builder $builder) {
+        //     $builder->whereYear('date', now()->year);
+        // });
+
+        static::addGlobalScope(new YearScope);
     }
 
     public function scopeLastWeek($query)
