@@ -28,7 +28,7 @@ class Post extends Model
     ]; // Casting de dados, garante que o dado seja sempre o padrão definido.
 
     protected $dispatchesEvents = [
-        'created' => PostCreated::class,
+        // 'created' => PostCreated::class,
     ];
 
     protected static function booted()
