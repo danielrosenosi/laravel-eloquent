@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Accessors\DefaultAccessors;
+use App\Events\PostCreated;
 use App\Scopes\YearScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +26,10 @@ class Post extends Model
         'data_criacao' => 'date',
         'active' => 'boolean'
     ]; // Casting de dados, garante que o dado seja sempre o padrão definido.
+
+    protected $dispatchesEvents = [
+        'created' => PostCreated::class,
+    ];
 
     protected static function booted()
     {
